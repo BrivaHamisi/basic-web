@@ -28,17 +28,16 @@
 
                                 <div class="align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <img src="assets/images/users/user-11.jpg"
-                                            class="rounded-circle avatar-xxl img-thumbnail float-start" alt="image profile">
+                                        <img src="{{(!empty($profileData->photo)) ? url('upload/user_images/'.$profileData->photo) : url('upload/no_image.jpg') }}"
+                                            class="img-fluid rounded-circle avatar-xxl img-thumbnail float-start" alt="image profile">
 
                                         <div class="overflow-hidden ms-4">
-                                            <h4 class="m-0 text-dark fs-20">Phoenix Baker</h4>
-                                            <p class="my-1 text-muted fs-16">Passionate Software Engineer Crafting
-                                                Innovative Solutions</p>
+                                            <h4 class="m-0 text-dark fs-20">{{$profileData->name}}</h4>
+                                            <p class="my-1 text-muted fs-16">{{$profileData->email}}</p>
                                             <span class="fs-15"><i class="mdi mdi-message me-2 align-middle"></i>Speaks:
-                                                <span>English <span
+                                                <span>English, <span
                                                         class="badge bg-primary-subtle text-primary px-2 py-1 fs-13 fw-normal">native</span>
-                                                    , Bitish, Turkish </span></span>
+                                                     Swahili </span></span>
                                         </div>
                                     </div>
                                 </div>
