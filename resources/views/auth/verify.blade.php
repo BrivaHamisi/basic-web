@@ -19,27 +19,6 @@
     <!-- Icons -->
     <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <style>
-        .otp-box {
-            width: 48px;
-            height: 56px;
-            border-radius: 10px;
-            border: 2px solid #dee2e6;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            padding: 0;
-        }
-
-        .otp-box:focus {
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
-        }
-
-        .otp-box.filled {
-            border-color: #0d6efd;
-            background-color: #f0f5ff;
-        }
-    </style>
-
 </head>
 
 <body class="bg-white">
@@ -75,21 +54,27 @@
                                             <label class="form-label">Verification Code</label>
                                             <div class="d-flex gap-2 justify-content-between" id="otp-inputs">
                                                 <input class="form-control otp-box text-center fw-bold fs-4"
+                                                    style="width: 48px; height: 56px;"
                                                     type="text" inputmode="numeric" maxlength="1" name="code[]"
                                                     autocomplete="off">
                                                 <input class="form-control otp-box text-center fw-bold fs-4"
+                                                    style="width: 48px; height: 56px;"
                                                     type="text" inputmode="numeric" maxlength="1" name="code[]"
                                                     autocomplete="off">
                                                 <input class="form-control otp-box text-center fw-bold fs-4"
+                                                    style="width: 48px; height: 56px;"
                                                     type="text" inputmode="numeric" maxlength="1" name="code[]"
                                                     autocomplete="off">
                                                 <input class="form-control otp-box text-center fw-bold fs-4"
+                                                    style="width: 48px; height: 56px;"
                                                     type="text" inputmode="numeric" maxlength="1" name="code[]"
                                                     autocomplete="off">
                                                 <input class="form-control otp-box text-center fw-bold fs-4"
+                                                    style="width: 48px; height: 56px;"
                                                     type="text" inputmode="numeric" maxlength="1" name="code[]"
                                                     autocomplete="off">
                                                 <input class="form-control otp-box text-center fw-bold fs-4"
+                                                    style="width: 48px; height: 56px;"
                                                     type="text" inputmode="numeric" maxlength="1" name="code[]"
                                                     autocomplete="off">
                                             </div>
@@ -98,11 +83,6 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
-
-                                        {{-- <div class="d-grid">
-                                                <button class="btn btn-primary" type="submit">Verify & Log In</button>
-                                            </div> --}}
-
                                         <div class="d-grid">
                                             <button class="btn btn-primary" type="submit" id="submit-btn">Verify & Log
                                                 In</button>
@@ -141,50 +121,6 @@
     <!-- App js -->
     <script src="{{ asset('backend/assets/js/app.js') }}"></script>
 
-    {{-- <script>
-        const boxes = document.querySelectorAll('.otp-box');
-        const hidden = document.getElementById('otp-hidden');
-        const form = document.getElementById('otp-form');
-
-        boxes.forEach((box, i) => {
-            // Auto-advance and auto-submit on manual input
-            box.addEventListener('input', () => {
-                box.value = box.value.replace(/\D/g, '').slice(-1);
-                box.classList.toggle('filled', box.value !== '');
-                if (box.value && i < boxes.length - 1) boxes[i + 1].focus();
-                hidden.value = [...boxes].map(b => b.value).join('');
-
-                // Auto-submit when last digit is typed
-                if (hidden.value.length === boxes.length) {
-                    form.submit();
-                }
-            });
-
-            // Backspace moves back
-            box.addEventListener('keydown', (e) => {
-                if (e.key === 'Backspace' && !box.value && i > 0) boxes[i - 1].focus();
-            });
-
-            // Handle paste — auto-submit if all digits filled
-            box.addEventListener('paste', (e) => {
-                e.preventDefault();
-                const pasted = e.clipboardData.getData('text').replace(/\D/g, '');
-                [...pasted].slice(0, boxes.length).forEach((char, idx) => {
-                    boxes[idx].value = char;
-                    boxes[idx].classList.add('filled');
-                });
-                const next = Math.min(pasted.length, boxes.length - 1);
-                boxes[next].focus();
-                hidden.value = [...boxes].map(b => b.value).join('');
-
-                // Auto-submit if all 6 digits are filled
-                if (hidden.value.length === boxes.length) {
-                    form.submit();
-                }
-            });
-        });
-    </script> --}}
-
     <script>
     const boxes = document.querySelectorAll('.otp-box');
     const hidden = document.getElementById('otp-hidden');
@@ -203,7 +139,9 @@
     boxes.forEach((box, i) => {
         box.addEventListener('input', () => {
             box.value = box.value.replace(/\D/g, '').slice(-1);
-            box.classList.toggle('filled', box.value !== '');
+            box.classList.toggle('border-primary', box.value !== '');
+            box.classList.toggle('bg-primary', box.value !== '');
+            box.classList.toggle('bg-opacity-10', box.value !== '');
             if (box.value && i < boxes.length - 1) boxes[i + 1].focus();
             hidden.value = [...boxes].map(b => b.value).join('');
 
@@ -221,7 +159,7 @@
             const pasted = e.clipboardData.getData('text').replace(/\D/g, '');
             [...pasted].slice(0, boxes.length).forEach((char, idx) => {
                 boxes[idx].value = char;
-                boxes[idx].classList.add('filled');
+                boxes[idx].classList.add('border-primary', 'bg-primary', 'bg-opacity-10');
             });
             const next = Math.min(pasted.length, boxes.length - 1);
             boxes[next].focus();
