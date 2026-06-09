@@ -18,6 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
 
-Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
+Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+Route::get('/verify', [AdminController::class, 'showVerification'])->name('custom.verification.form');
+Route::post('/verify', [AdminController::class, 'verificationVerify'])->name('custom.verification.verify');
+
+require __DIR__.'/auth.php';
