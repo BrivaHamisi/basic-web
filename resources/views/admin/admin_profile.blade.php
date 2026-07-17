@@ -1,7 +1,8 @@
 @extends('admin.admin_master')
 
 @section('admin')
-    {{-- <div class="content-page"> --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <div class="content">
 
         <!-- Start Content-->
@@ -58,7 +59,7 @@
                                                     </div>
                                                 </div>
 
-                                                <form method="POST" action="#" enctype="multipart/form-data">
+                                                <form method="POST" action="{{ route('profile.store') }}" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="card-body">
                                                         <div class="form-group mb-3 row">
@@ -108,10 +109,11 @@
                                                                 <div class="input-group">
                                                                     <input class="form-control" type="file"
                                                                         accept="image/*" aria-describedby="basic-addon1"
-                                                                        name="photo">
+                                                                        name="photo" id="image">
                                                                 </div>
                                                                 <div class="mt-4">
-                                                                    <img src="{{ !empty($profileData->photo) ? url('upload/user_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
+                                                                    <img id="showImage"
+                                                                        src="{{ !empty($profileData->photo) ? url('upload/user_images/' . $profileData->photo) : url('upload/no_image.jpg') }}"
                                                                         alt="Current Photo" width="80" height="80"
                                                                         class="rounded-circle border">
                                                                 </div>
@@ -174,12 +176,21 @@
                                     </div>
                                 </div>
                             </div> <!-- end education -->
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- </div> --}}
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#image').change(function(e) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#showImage').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                });
+            });
+        </script>
     @endsection
