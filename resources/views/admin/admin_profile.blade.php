@@ -103,7 +103,7 @@
                                                         </div>
 
                                                         <div class="form-group mb-3 row">
-                                                            <label class="form-label">Photo</label>
+                                                            <label class="form-label">Profile Photo</label>
                                                             <div class="col-lg-12 col-xl-12">
                                                                 <div class="input-group">
                                                                     <input class="form-control" type="file"
