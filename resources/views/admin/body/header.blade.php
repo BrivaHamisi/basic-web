@@ -50,8 +50,8 @@
                             <a href="javascript:void(0);"
                                 class="dropdown-item notify-item text-muted link-primary active">
                                 <div class="notify-icon">
-                                    <img src="{{ asset('backend/assets/images/users/user-12.jpg') }}" class="img-fluid rounded-circle"
-                                        alt="" />
+                                    <img src="{{ asset('backend/assets/images/users/user-12.jpg') }}"
+                                        class="img-fluid rounded-circle" alt="" />
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between">
                                     <p class="notify-details">Carl Steadham</p>
@@ -74,12 +74,19 @@
                     </div>
                 </li>
 
+                @php
+                    $user = auth()->user();
+                @endphp
+
                 <li class="dropdown notification-list topbar-dropdown">
                     <a class="nav-link dropdown-toggle nav-user me-0" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="{{ asset('backend/assets/images/users/user-11.jpg') }}" alt="user-image" class="rounded-circle">
+                        <img src="{{ $user->photo
+                            ? asset('upload/user_images/' . $user->photo)
+                            : asset('backend/assets/images/users/user-11.jpg') }}"
+                            alt="{{ $user->name }}" class="rounded-circle">
                         <span class="pro-user-name ms-1">
-                            Christian <i class="mdi mdi-chevron-down"></i>
+                            {{ $user->name }} <i class="mdi mdi-chevron-down"></i>
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
