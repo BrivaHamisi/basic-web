@@ -106,8 +106,6 @@
                                                             <label class="form-label">Photo</label>
                                                             <div class="col-lg-12 col-xl-12">
                                                                 <div class="input-group">
-                                                                    {{-- <span class="input-group-text"><i
-                                                                            class="mdi mdi-camera-outline"></i></span> --}}
                                                                     <input class="form-control" type="file"
                                                                         accept="image/*" aria-describedby="basic-addon1"
                                                                         name="photo">
