@@ -58,8 +58,7 @@
                                     <small class="text-muted">5 min ago</small>
                                 </div>
                                 <p class="mb-0 user-msg">
-                                    <small class="fs-14">Completed <span class="text-reset">Improve workflow in
-                                            Figma</span></small>
+                                    <small class="fs-14">Completed <span class="text-reset">Improve workflow in Figma</span></small>
                                 </p>
                             </a>
                         </div>
