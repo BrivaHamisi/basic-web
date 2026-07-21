@@ -106,7 +106,8 @@ class AdminController extends Controller
 
     //End Method
 
-    public function verificationVerify(Request $request){
+    public function verificationVerify(Request $request)
+    {
         $request->validate([
             'code' => ['required', 'digits:6'],
         ]);
@@ -162,32 +163,66 @@ class AdminController extends Controller
     }
     //End Method
 
+    // public function PasswordUpdate(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $request->validate([
+    //         'old_password' => ['required'],
+    //         'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+    //     ]);
+
+    //     if (!Hash::check($request->old_password, $user->password)) {
+    //         $notification = array(
+    //             'message' => 'Old password does not Match',
+    //             'alert-type' => 'error'
+    //         );
+    //         return back()->with($notification);
+    //     }
+
+    //     User::whereId($user->id)->update([
+    //         'password' => Hash::make($request->new_password)
+    //     ]);
+
+    //     // Regenerate the session to prevent session fixation
+    //     $request->session()->regenerate();
+
+    //     $notification = array(
+    //         'message' => 'Password Updated Successfully',
+    //         'alert-type' => 'success'
+    //     );
+
+    //     return redirect()->back()->with($notification);
+    // }
+
+    //End Method
+
     public function PasswordUpdate(Request $request)
     {
-        $user = Auth::user();
-        $request->validate([
-            'old_password' => ['required'],
-            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
-        if (!Hash::check($request->old_password, $user->password)) {
-            $notification = array(
-                'message' => 'Old password does not Match',
-                'alert-type' => 'error'
-            );
-            return back()->with($notification);
-        }
-
-        User::whereId($user->id)->update([
-            'password' => Hash::make($request->new_password)
-        ]);
-
-        $notification = array(
-            'message' => 'Password Updated Successfully',
-            'alert-type' => 'success'
+        $request->validate(
+            [
+                'old_password' => ['required', 'current_password'],
+                'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+            ],
+            [
+                'old_password.current_password' => 'The current password is incorrect.',
+            ]
         );
+
+        $user = $request->user();
+
+        $user->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        // Regenerate the session to prevent session fixation
+        $request->session()->regenerate();
+
+        $notification = [
+            'message' => 'Password updated successfully.',
+            'alert-type' => 'success',
+        ];
 
         return redirect()->back()->with($notification);
     }
-    //End Method
+    // End Method
 }
