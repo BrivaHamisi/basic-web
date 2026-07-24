@@ -68,16 +68,16 @@
                     <td>{{ $testimonial->message }}</td>
                     <td>
                         @if ($testimonial->published)
-                            <span class="badge bg-success">Published</span>
+                            <span class="badge rounded-pill text-bg-success">Published</span>
                         @else
-                            <span class="badge bg-secondary">Draft</span>
+                            <span class="badge rounded-pill text-bg-warning">Draft</span>
                         @endif
                     </td>
                     <td>{{ $testimonial->created_at->format('M d, Y') }}</td>
                     <td>
                         <div class="d-flex gap-2">
                             <a href="{{ route('testimonials.edit', $testimonial->id) }}"
-                                class="btn btn-primary btn-sm">
+                                class="btn btn-outline-primary btn-sm">
                                 Edit
                             </a>
                             <form action="{{ route('testimonials.destroy', $testimonial->id) }}"
@@ -85,7 +85,7 @@
                                 onsubmit="return confirm('Are you sure you want to delete this testimonial?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
                                     Delete
                                 </button>
                             </form>
