@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\TestimonialsController;
 
 Route::get('/', function () {
     return view('home.index');
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
     Route::post('/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
     Route::post('/profile/password/update', [AdminController::class, 'PasswordUpdate'])->name('admin.password.update');
+
+    Route::get('/testimonials', [TestimonialsController::class, 'Testimonials'])->name('testimonials');
 });
 
 require __DIR__ . '/auth.php';
