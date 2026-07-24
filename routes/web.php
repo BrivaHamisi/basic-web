@@ -36,6 +36,11 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::controller(TestimonialsController::class)->group(function () {
         Route::get('/testimonials', 'Testimonials')->name('testimonials');
+
+        //Add and Store Testimonial
+        Route::get('/testimonials/create', 'create')->name('testimonials.create');
+        Route::post('/testimonials', 'store')->name('testimonials.store');
+        
         Route::get('/testimonials/{testimonial}/edit', 'edit')->name('testimonials.edit');
         Route::put('/testimonials/{testimonial}', 'update')->name('testimonials.update');
         Route::delete('/testimonials/{testimonial}', 'destroy')->name('testimonials.destroy');

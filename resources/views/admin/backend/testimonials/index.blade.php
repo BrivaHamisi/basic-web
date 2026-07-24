@@ -33,7 +33,7 @@
 
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <h5 class="card-title mb-0">Testimonials Data</h5>
-                        <a href="#" class="btn btn-primary btn-sm">
+                        <a href="{{ route('testimonials.create') }}" class="btn btn-primary btn-sm">
                             <i class="ri-add-line align-middle me-1"></i> Add Testimonial
                         </a>
                     </div><!-- end card header -->
