@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('position');
             $table->string('photo')->nullable();
             $table->text('message');
+            $table->boolean('published')->default(true);
             $table->timestamps();
         });
     }

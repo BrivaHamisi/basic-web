@@ -31,8 +31,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
     Route::post('/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
     Route::post('/profile/password/update', [AdminController::class, 'PasswordUpdate'])->name('admin.password.update');
+});
 
-    Route::get('/testimonials', [TestimonialsController::class, 'Testimonials'])->name('testimonials');
+Route::middleware('auth')->group(function () {
+    Route::controller(TestimonialsController::class)->group(function () {
+        Route::get('/testimonials', 'Testimonials')->name('testimonials');
+        Route::get('/testimonials/{testimonial}/edit', 'edit')->name('testimonials.edit');
+        Route::put('/testimonials/{testimonial}', 'update')->name('testimonials.update');
+        Route::delete('/testimonials/{testimonial}', 'destroy')->name('testimonials.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';

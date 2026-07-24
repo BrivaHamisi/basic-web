@@ -30,6 +30,7 @@ class TestimonialFactory extends Factory
             ]),
             'photo' => null,
             'message' => fake()->paragraphs(rand(2, 4), true),
+            'published' => fake()->boolean(80), // 80% published
         ];
     }
 }
