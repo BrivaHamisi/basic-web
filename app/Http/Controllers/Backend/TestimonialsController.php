@@ -8,9 +8,18 @@ use App\Models\Testimonial;
 
 class TestimonialsController extends Controller
 {
-    public function Testimonials()
+    public function Testimonials(Request $request)
     {
-        $testimonials = Testimonial::latest()->paginate(5);
+        $search = $request->input('search');
+
+        $testimonials = Testimonial::when($search, function ($query, $search) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('position', 'like', "%{$search}%")
+                ->orWhere('message', 'like', "%{$search}%");
+        })
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
         return view('admin.backend.testimonials.index', compact('testimonials'));
     }
     //End Method
@@ -21,31 +30,31 @@ class TestimonialsController extends Controller
     }
     //End Method
 
-public function store(Request $request)
-{
-    $request->validate([
-        'name'     => 'required|string|max:255',
-        'position' => 'required|string|max:255',
-        'message'  => 'required|string',
-        'photo'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'message'  => 'required|string',
+            'photo'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
 
-    $data = $request->only(['name', 'position', 'message']);
-    $data['published'] = $request->has('published');
+        $data = $request->only(['name', 'position', 'message']);
+        $data['published'] = $request->has('published');
 
-    if ($request->hasFile('photo')) {
-        $file = $request->file('photo');
-        $filename = time() . '.' . $file->getClientOriginalName();
-        $file->move(public_path('upload/testimonials'), $filename);
-        $data['photo'] = $filename;
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $filename = time() . '.' . $file->getClientOriginalName();
+            $file->move(public_path('upload/testimonials'), $filename);
+            $data['photo'] = $filename;
+        }
+
+        Testimonial::create($data);
+
+        return redirect()->route('testimonials')
+            ->with('message', 'Testimonial created successfully.')
+            ->with('alert-type', 'success');
     }
-
-    Testimonial::create($data);
-
-    return redirect()->route('testimonials')
-        ->with('message', 'Testimonial created successfully.')
-        ->with('alert-type', 'success');
-}
 
     public function edit(Testimonial $testimonial)
     {
