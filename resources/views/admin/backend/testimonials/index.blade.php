@@ -88,7 +88,7 @@
                                                     onsubmit="return confirm('Are you sure you want to delete this testimonial?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm" id="delete">
                                                         Delete
                                                     </button>
                                                 </form>
