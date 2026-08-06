@@ -22,12 +22,12 @@ class SliderController extends Controller
 
         $sliders = $query->latest()->paginate(10)->withQueryString();
 
-        return view('admin.sliders.index', compact('sliders'));
+        return view('admin.backend.sliders.index', compact('sliders'));
     }
 
     public function create()
     {
-        return view('admin.sliders.create');
+        return view('admin.backend.sliders.create');
     }
 
     public function store(Request $request)
@@ -51,12 +51,12 @@ class SliderController extends Controller
 
         Slider::create($validated);
 
-        return redirect()->route('sliders')->with('success', 'Slider created successfully.');
+        return redirect()->route('admin.sliders')->with('success', 'Slider created successfully.');
     }
 
     public function edit(Slider $slider)
     {
-        return view('admin.sliders.edit', compact('slider'));
+        return view('admin.backend.sliders.edit', compact('slider'));
     }
 
     public function update(Request $request, Slider $slider)
@@ -84,7 +84,7 @@ class SliderController extends Controller
 
         $slider->update($validated);
 
-        return redirect()->route('sliders')->with('success', 'Slider updated successfully.');
+        return redirect()->route('admin.sliders')->with('success', 'Slider updated successfully.');
     }
 
     public function destroy(Slider $slider)
@@ -95,6 +95,6 @@ class SliderController extends Controller
 
         $slider->delete();
 
-        return redirect()->route('sliders')->with('success', 'Slider deleted successfully.');
+        return redirect()->route('admin.sliders')->with('success', 'Slider deleted successfully.');
     }
 }

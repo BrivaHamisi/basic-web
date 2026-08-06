@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\TestimonialsController;
+use App\Http\Controllers\Backend\SliderController;
 
 Route::get('/', function () {
     return view('home.index');
@@ -18,6 +19,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
+});
+
+Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+    Route::get('sliders', [SliderController::class, 'index'])->name('sliders');
+    Route::get('sliders/create', [SliderController::class, 'create'])->name('sliders.create');
+    Route::post('sliders', [SliderController::class, 'store'])->name('sliders.store');
+    Route::get('sliders/{slider}/edit', [SliderController::class, 'edit'])->name('sliders.edit');
+    Route::put('sliders/{slider}', [SliderController::class, 'update'])->name('sliders.update');
+    Route::delete('sliders/{slider}', [SliderController::class, 'destroy'])->name('sliders.destroy');
 });
 
 

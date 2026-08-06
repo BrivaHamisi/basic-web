@@ -48,6 +48,13 @@
                             </li>
 
                             <li>
+                                <a href="{{route('admin.sliders')}}" class="tp-link">
+                                    <i data-feather="alert-octagon"></i>
+                                    <span> Sliders </span>
+                                </a>
+                            </li>
+
+                            <li>
                                 <a href="#sidebarAuth" data-bs-toggle="collapse">
                                     <i data-feather="users"></i>
                                     <span> Testimonials Setup </span>
