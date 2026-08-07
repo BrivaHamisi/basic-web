@@ -18,7 +18,7 @@
              </div>
              <div class="col-lg-5">
                  <div class="lonyo-hero-thumb" data-aos="fade-left" data-aos-duration="700">
-                     <img src="{{ asset('frontend/assets/images/v1/hero-thumb.png') }}" alt="">
+                     <img src="{{ asset('upload/sliders/' . $slider->image) }}" alt="Slider Image">
                      <div class="lonyo-hero-shape">
                          <img src="{{ asset('frontend/assets/images/shape/hero-shape1.svg') }}" alt="">
                      </div>
