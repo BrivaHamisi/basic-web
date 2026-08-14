@@ -14,14 +14,12 @@ Route::get('/dashboard', function () {
     return view('admin.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
-});
+
 
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
+    Route::get('profile', [AdminController::class, 'adminProfile'])->name('profile');
+    Route::post('profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
+    Route::post('profile/password/update', [AdminController::class, 'PasswordUpdate'])->name('password.update');
     Route::get('sliders', [SliderController::class, 'index'])->name('sliders');
     Route::get('sliders/create', [SliderController::class, 'create'])->name('sliders.create');
     Route::post('sliders', [SliderController::class, 'store'])->name('sliders.store');
@@ -36,12 +34,6 @@ Route::post('/admin/login', [AdminController::class, 'adminLogin'])->name('admin
 Route::get('/verify', [AdminController::class, 'showVerification'])->name('custom.verification.form');
 Route::post('/verify', [AdminController::class, 'verificationVerify'])->name('custom.verification.verify');
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
-    Route::post('/profile/store', [AdminController::class, 'ProfileStore'])->name('profile.store');
-    Route::post('/profile/password/update', [AdminController::class, 'PasswordUpdate'])->name('admin.password.update');
-});
 
 Route::middleware('auth')->group(function () {
     Route::controller(TestimonialsController::class)->group(function () {
